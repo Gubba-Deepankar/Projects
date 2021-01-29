@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gubba Sketch Pad</title>
+    <link rel="stylesheet" href="gubbaSketch.css">
+</head>
+<body>
+    <button class="button1" onclick="button1click()">Clear Page</button>
+    <div id = "root">
+        <script>
+
+            let parent = document.getElementById('root');
+            parent.classList.add('grid-container');
+            parent.classList.add('div-main');
+            draw(16);
+            let msg = "Enter the Grid Size:";
+
+            //buttonclick
+            function button1click() {
+                //remove all nodes
+                while (parent.firstChild) {
+                    parent.removeChild(parent.firstChild);
+                }
+
+                //get grid size
+                let n = parseInt(prompt(msg));
+                if (Number.isInteger(n)) {
+                    if (n <= 100) {
+                        draw(n);
+                    }
+                    else {
+                        msg = "choose a number < 100";
+                        button1click();
+                    }
+                }
+                else {
+                    msg = "choose a number only";
+                    button1click();
+                }
+            }
+
+            //draw function
+            function draw(n) {
+                let childDiv = null;
+                for (let i = 1; i <= n; i++) {
+                    for (let j = 1; j <= n; j++) {
+                        childDiv = document.createElement('div');
+                        childDiv.classList.add('grid-item');
+                        childDiv.classList.add('div-child');
+                        parent.appendChild(childDiv);
+                    }
+                }
+
+                //adding event listener
+                const childNodes = document.querySelectorAll('.div-child');
+                childNodes.forEach((child) => {
+                    child.addEventListener('mouseover', function (e) {
+                        e.target.style.background = 'black';
+                    });
+                });
+            }
+        </script>
+    </div>
+</body>
+</html>
